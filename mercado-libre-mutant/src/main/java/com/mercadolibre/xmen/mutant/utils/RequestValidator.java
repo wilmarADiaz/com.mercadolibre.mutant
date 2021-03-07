@@ -2,7 +2,7 @@ package com.mercadolibre.xmen.mutant.utils;
 
 import java.util.List;
 
-public class ValidatorRequest {
+public class RequestValidator {
 	public static boolean isValid (List<String> dna) {
 		boolean isValidChain = true;
 		int i = 0;
