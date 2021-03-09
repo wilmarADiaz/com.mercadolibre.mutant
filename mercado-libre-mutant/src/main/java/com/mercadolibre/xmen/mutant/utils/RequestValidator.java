@@ -8,11 +8,12 @@ public class RequestValidator {
 		int i = 0;
 		while(dna != null && !dna.isEmpty() && isValidChain == true && dna.size() > i) {
 			String stringTem = dna.get(i);
-			if(!stringTem.matches("^[ATGC]*$")) {
+			if(!stringTem.matches("^[ATGC]*$") || dna.size() != dna.get(i).length()) {
 				isValidChain = false;
 			}
 			i++;
 		}
-		return isValidChain;
+		
+		return isValidChain ;
 	}
 }

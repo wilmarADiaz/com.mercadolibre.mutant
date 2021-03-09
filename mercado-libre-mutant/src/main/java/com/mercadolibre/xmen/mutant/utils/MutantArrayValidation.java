@@ -23,16 +23,16 @@ public class MutantArrayValidation {
 			secuence = numSecuencesHorizontalBelow(dna);
 			break;
 		case 5:
-			secuence = numSecuencesDiagonalHighRightLeft(dna);
+			secuence = numSecuencesDiagonalAboveRightLeft(dna);
 			break;
 		case 6:
-			secuence = numSecuencesDiagonalLowRightLeft(dna);
+			secuence = numSecuencesDiagonalBelowRightLeft(dna);
 			break;
 		case 7:
-			secuence = numSecuencesDiagonalHighLeftRight(dna);
+			secuence = numSecuencesDiagonalAboveLeftRight(dna);
 			break;
 		case 8:
-			secuence = numSecuencesDiagonalLowLeftRight(dna);
+			secuence = numSecuencesDiagonalBelowLeftRight(dna);
 			break;	
 			
 		default:
@@ -99,20 +99,18 @@ public class MutantArrayValidation {
 		int secuence = 0;
 		for(int i=initI; i<endI && secuence < numMaxSecuences; i++) {
 			for(int j=initJ; j<endJ && proteinNum < numMaxProtein; j++) {				
-				if(protein == init) {
-					protein = dna.get(i).charAt(j);
-					proteinNum ++;
-				}else if(protein == dna.get(i).charAt(j)) {
+				if(protein == dna.get(i).charAt(j)) {
 					proteinNum ++;
 				}else {
-					protein = init;
-					proteinNum = 0;
+					protein = dna.get(i).charAt(j);
+					proteinNum = 1;
 				}
-				
 			}
 			if(proteinNum >= numMaxProtein) {
 				secuence++;
 			}
+			protein = init;
+			proteinNum = 0;
 		}
 		return secuence;
 		
@@ -123,116 +121,122 @@ public class MutantArrayValidation {
 		int secuence = 0;
 		for(int j=intitJ; j<endJ && secuence < numMaxSecuences; j++) {			
 			for(int i=initI; i<endI &&  proteinNum < numMaxProtein; i++) {				
-				if(protein == init) {
-					protein = dna.get(i).charAt(j);
-					proteinNum ++;
-				}else if(protein == dna.get(i).charAt(j)) {
+				if(protein == dna.get(i).charAt(j)) {
 					proteinNum ++;
 				}else {
-					protein = init;
-					proteinNum = 0;
+					protein = dna.get(i).charAt(j);
+					proteinNum = 1;
 				}
 				
 			}
 			if(proteinNum >= numMaxProtein) {
 				secuence++;
 			}
+			protein = init;
+			proteinNum = 0;
 		}
 		return secuence;
 	}
-	
-	public static int numSecuencesDiagonalHighRightLeft(List<String> dna) {
+	/**
+	 * Validation diagonal \
+	 * @param dna
+	 * @return
+	 */
+	public static int numSecuencesDiagonalAboveRightLeft(List<String> dna) {
 		char protein = init;
 		int proteinNum = 0;
 		int secuence = 0;
 		for (int i=0;i<dna.size() && secuence < numMaxSecuences;i++) {
 			for (int j=0;j<=i && proteinNum < numMaxProtein; j++) {
-				if(protein == init) {
-					protein = dna.get(j).charAt((dna.size()-1-i)+j);
-					proteinNum ++;
-				}else if(protein == dna.get(j).charAt((dna.size()-1-i)+j)) {
+				if(protein == dna.get(j).charAt((dna.size()-1-i)+j)) {
 					proteinNum ++;
 				}else {
-					protein = init;
-					proteinNum = 0;
+					protein = dna.get(j).charAt((dna.size()-1-i)+j);
+					proteinNum = 1;
 				}
-				
 			}
 			if(proteinNum >= numMaxProtein) {
 				secuence++;
 			}
+			protein = init;
+			proteinNum = 0;
 
 		}
 		return secuence;
 	}
 	
-	public static int numSecuencesDiagonalLowRightLeft(List<String> dna) {
+	/**
+	 * Validation diagonal \
+	 * @param dna
+	 * @return
+	 */
+	public static int numSecuencesDiagonalBelowRightLeft(List<String> dna) {
 		char protein = init;
 		int proteinNum = 0;
 		int secuence = 0;
 		for (int i=0;i<dna.size()-1 && secuence < numMaxSecuences; i++) {
-			for (int j=0;j<dna.size()-i-1 && proteinNum < numMaxProtein; j++) {
-				if(protein == init) {
-					protein = dna.get(j+i+1).charAt(j);
-					proteinNum ++;
-				}else if(protein == dna.get(j+i+1).charAt(j)) {
+			for (int j=0;j<dna.size()-i-1 && proteinNum < numMaxProtein; j++) {				
+				if(protein == dna.get(j+i+1).charAt(j)) {
 					proteinNum ++;
 				}else {
-					protein = init;
-					proteinNum = 0;
-				}
+					protein = dna.get(j+i+1).charAt(j);
+					proteinNum = 1;
+				}				
 			}
 			if(proteinNum >= numMaxProtein) {
 				secuence++;
 			}
+			protein = init;
+			proteinNum = 0;
 		}
 		return secuence;
 	}
 	
-	public static int numSecuencesDiagonalHighLeftRight(List<String> dna) {
+	/**
+	 * Validation diagonal /
+	 * @param dna
+	 * @return
+	 */
+	public static int numSecuencesDiagonalAboveLeftRight(List<String> dna) {
 		char protein = init;
 		int proteinNum = 0;
 		int secuence = 0;
 		for (int i=0;i<dna.size() && secuence < numMaxSecuences;i++) {
-			for (int j=0;j<=i && proteinNum < numMaxProtein; j++) {
-				if(protein == init) {
-					protein = dna.get(i-j).charAt(i);
-					proteinNum ++;
-				}else if(protein == dna.get(i-j).charAt(i)) {
+			for (int j=0;j<=i && proteinNum < numMaxProtein; j++) {				
+				if(protein == dna.get(i-j).charAt(j)) {
 					proteinNum ++;
 				}else {
-					protein = init;
-					proteinNum = 0;
+					protein = dna.get(i-j).charAt(j);
+					proteinNum = 1;
 				}
-				
 			}
 			if(proteinNum >= numMaxProtein) {
 				secuence++;
 			}
-
+			protein = init;
+			proteinNum = 0;
 		}
 		return secuence;
 	}
 	
-	public static int numSecuencesDiagonalLowLeftRight(List<String> dna) {
+	public static int numSecuencesDiagonalBelowLeftRight(List<String> dna) {
 		char protein = init;
 		int proteinNum = 0;
 		int secuence = 0;
 		for (int i=0;i<dna.size() && secuence < numMaxSecuences;i++) {
 			for (int j=0;j<dna.size()-i-1 && proteinNum < numMaxProtein;j++) {
-				if(protein == init) {
-					protein = dna.get(dna.size()-j-1).charAt(j+i+1);
-					proteinNum ++;
-				}else if(protein == dna.get(dna.size()-j-1).charAt(j+i+1)) {
+				if(protein == dna.get(dna.size()-j-1).charAt(j+i+1)) {
 					proteinNum ++;
 				}else {
-					protein = init;
-					proteinNum = 0;
+					protein = dna.get(dna.size()-j-1).charAt(j+i+1);
+					proteinNum = 1;
 				}
 			}
 			if(proteinNum >= numMaxProtein) {
 				secuence++;
 			}
+			protein = init;
+			proteinNum = 0;
 		}
 		return secuence;
 	}
