@@ -11,12 +11,12 @@ import com.google.gson.Gson;
 import com.mercadolibre.xmen.mutant.object.Dna;
 
 @SpringBootTest
-public class MutantArrayValidationTest {
+class MutantArrayValidationTest {
 	private Dna dna;
 	private Gson gson;
 	
 	@BeforeTestMethod
-	public void setUp() {
+	void setUp() {
 		gson = new Gson();
 		String json = "{"
 				+ "\"dna\":[\"ATGCGA\", \"CAGTGC\", \"TTATGT\", \"AGAAGG\", \"CCCCTA\", \"TCACTG\"]"
