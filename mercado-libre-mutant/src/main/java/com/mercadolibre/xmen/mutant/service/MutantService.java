@@ -2,10 +2,23 @@ package com.mercadolibre.xmen.mutant.service;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Service;
+
+import com.google.gson.Gson;
+import com.mercadolibre.xmen.mutant.object.Stats;
+import com.mercadolibre.xmen.mutant.persistence.entity.RecruitingMutantEntity;
+import com.mercadolibre.xmen.mutant.persistence.repository.RecruitingMutantRepository;
 
 @Service
 public class MutantService {
+	
+	@Resource
+	private RecruitingMutantRepository repository;
+	
+	private Gson gson;
+	
 	public boolean isMutant(List<String> dna) {
 		MutantThread thread1 = new MutantThread(dna, 1);
 		MutantThread thread2 = new MutantThread(dna, 2);
@@ -33,8 +46,34 @@ public class MutantService {
 		secuence = secuence + thread5.getSecuences();
 		secuence = secuence + thread6.getSecuences();
 		secuence = secuence + thread7.getSecuences();
-		secuence = secuence + thread8.getSecuences();
 		return secuence>1;
+	}
+	
+	public boolean saveDna(List<String> dna, boolean isMutant) {
+		RecruitingMutantEntity entity = new RecruitingMutantEntity();
+		RecruitingMutantEntity entitySave = null;
+		boolean saveOk = true;
+		gson= new Gson();
+		entity.setDna(gson.toJson(dna));
+		entity.setMutant(isMutant);
+	
+		entitySave = repository.save(entity);
+		if(entitySave == null ||  entitySave.getDna() == null) {
+			saveOk=false;
+		}
+		return saveOk;
+	}	
+	
+	public String stadistics() {
+		long numHumans = repository.count();
+		long numMutants = repository.countByMutant(true);
+		gson= new Gson();
+		Stats stats = new Stats();
+		stats.setCountHumanDna(numHumans);
+		stats.setCountMutantDna(numMutants);
+		stats.setRatio((numMutants*100)/numHumans);
+		
+		return gson.toJson(stats);
 	}
 	
 }

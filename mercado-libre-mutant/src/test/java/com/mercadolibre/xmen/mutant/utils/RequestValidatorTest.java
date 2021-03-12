@@ -10,12 +10,12 @@ import com.google.gson.Gson;
 import com.mercadolibre.xmen.mutant.object.Dna;
 
 @SpringBootTest
-public class RequestValidatorTest {
+class RequestValidatorTest {
 	private Dna dna;
 	private Gson gson;
 	
 	@BeforeTestMethod
-	public void setUp() {
+	void setUp() {
 		gson = new Gson();
 		String json = "{"
 				+ "\"dna\":[\"ATGCGA\", \"CAGTGC\", \"TTATGT\", \"AGAAGG\", \"CCCCTA\", \"TCACTG\"]"
@@ -25,7 +25,7 @@ public class RequestValidatorTest {
 	}
 	
 	@Test
-	public void isValidTest() {
+	void isValidTest() {
 		setUp();		
 		assertEquals(true,RequestValidator.isValid(dna.getDna()));
 	}
