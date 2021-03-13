@@ -49,7 +49,7 @@ public class MutantService {
 		return secuence>1;
 	}
 	
-	public boolean saveDna(List<String> dna, boolean isMutant) {
+	public boolean saveDna(List<String> dna, boolean isMutant)  {
 		RecruitingMutantEntity entity = new RecruitingMutantEntity();
 		RecruitingMutantEntity entitySave = null;
 		boolean saveOk = true;
