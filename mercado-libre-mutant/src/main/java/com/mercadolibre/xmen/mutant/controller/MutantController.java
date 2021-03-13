@@ -24,7 +24,7 @@ public class MutantController {
 	private static final Logger log = LogManager.getLogger(MutantController.class);
 	
 	@PostMapping(value = "/mutant", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<String> validateMutante(@RequestBody Dna dna){		
+	public ResponseEntity<String> validateMutante(@RequestBody Dna dna) {		
 		ResponseEntity<String> response = null;
 		if(RequestValidator.isValid(dna.getDna())) {
 			if(service.isMutant(dna.getDna())) {
@@ -36,8 +36,14 @@ public class MutantController {
 					log.error(e.getMessage()+":"+e);
 				}
 				response = ResponseEntity.ok().body("");
-			}else {
-				service.saveDna(dna.getDna(), false);
+			}else {				
+				try {
+					if(!service.saveDna(dna.getDna(), false)) {
+						log.error("Error when storing data");
+					}
+				}catch (Exception e) {
+						log.error(e.getMessage()+":"+e);
+				}
 				response = ResponseEntity.status(HttpStatus.FORBIDDEN).body("");
 			}
 			
